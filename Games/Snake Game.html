@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Heliplay — Snake Game</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      defer
+    ></script>
+    <script src="/script.js" defer></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm mb-0">
+      <div class="container-fluid">
+        <a href="/Index.html" class="me-3">
+          <img class="minilogo" src="/images/logo.png" alt="minilogo" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Categories.html">Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main class="game-snake">
+      <h1>Snake Game</h1>
+      <div class="scoreboard">Score: <span id="score">0</span></div>
+      <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+      <button id="startBtn" onclick="startGame()">Start Game</button>
+      <div id="gameMessage" class="game-message"></div>
+      <section class="game-rules">
+        <h2>Game Rules</h2>
+        <p>
+          1️⃣ Use the <strong>arrow keys</strong> (⬆️⬇️⬅️➡️) to move the
+          snake.<br />
+          2️⃣ Eat the blue squares to grow your snake and earn points.<br />
+          3️⃣ Don't hit the walls or your own tail — or the game will end! 💀<br />
+          4️⃣ Each food increases your <strong>score</strong> by 1 point.<br />
+          5️⃣ Click <strong>“Start Game”</strong> to begin or restart at any time
+          🔁
+        </p>
+      </section>
+    </main>
+
+    <script>
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+
+      const box = 20;
+      let snake, direction, food, score, game;
+
+      function initGame() {
+        snake = [{ x: 9 * box, y: 10 * box }];
+        direction = "RIGHT";
+        food = {
+          x: Math.floor(Math.random() * 20) * box,
+          y: Math.floor(Math.random() * 20) * box,
+        };
+        score = 0;
+        document.getElementById("score").innerText = score;
+        document.getElementById("gameMessage").innerText = "";
+      }
+
+      function draw() {
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        snake.forEach((segment, index) => {
+          ctx.fillStyle = index === 0 ? "#f298f5" : "#f298f5";
+          ctx.fillRect(segment.x, segment.y, box, box);
+          ctx.strokeStyle = "black";
+          ctx.strokeRect(segment.x, segment.y, box, box);
+        });
+
+        ctx.fillStyle = "#1bbef5";
+        ctx.fillRect(food.x, food.y, box, box);
+
+        let snakeX = snake[0].x;
+        let snakeY = snake[0].y;
+
+        if (direction === "LEFT") snakeX -= box;
+        if (direction === "UP") snakeY -= box;
+        if (direction === "RIGHT") snakeX += box;
+        if (direction === "DOWN") snakeY += box;
+
+        if (snakeX === food.x && snakeY === food.y) {
+          score++;
+          food = {
+            x: Math.floor(Math.random() * 20) * box,
+            y: Math.floor(Math.random() * 20) * box,
+          };
+        } else {
+          snake.pop();
+        }
+
+        const newHead = { x: snakeX, y: snakeY };
+
+        if (
+          snakeX < 0 ||
+          snakeX >= canvas.width ||
+          snakeY < 0 ||
+          snakeY >= canvas.height ||
+          collision(newHead, snake)
+        ) {
+          clearInterval(game);
+          document.getElementById(
+            "gameMessage"
+          ).innerText = `Game Over! Your score: ${score}`;
+          document.getElementById("startBtn").innerText = "Start Game";
+          return;
+        }
+
+        snake.unshift(newHead);
+        document.getElementById("score").innerText = score;
+      }
+
+      function collision(head, array) {
+        return array.some(
+          (segment) => head.x === segment.x && head.y === segment.y
+        );
+      }
+
+      document.addEventListener("keydown", changeDirection);
+      function changeDirection(event) {
+        const key = event.keyCode;
+        if (key === 37 && direction !== "RIGHT") direction = "LEFT";
+        if (key === 38 && direction !== "DOWN") direction = "UP";
+        if (key === 39 && direction !== "LEFT") direction = "RIGHT";
+        if (key === 40 && direction !== "UP") direction = "DOWN";
+      }
+
+      function startGame() {
+        clearInterval(game);
+        initGame();
+        game = setInterval(draw, 100);
+        document.getElementById("startBtn").innerText = "Restart Game";
+      }
+
+      initGame();
+    </script>
+  </body>
+</html>

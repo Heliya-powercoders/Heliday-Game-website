@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Heliplay — Whack-a-Mole Game</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      defer
+    ></script>
+    <script src="/script.js" defer></script>
+  </head>
+  <body class="game-whackamole">
+    <nav class="navbar navbar-expand-lg shadow-sm mb-0">
+      <div class="container-fluid">
+        <a href="/index.html" class="me-3">
+          <img class="minilogo" src="/images/logo.png" alt="minilogo" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Categories.html">Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="whackamole-page">
+      <h1>Whack-a-Mole</h1>
+      <div class="scoreboard">Score: <span id="score">0</span></div>
+      <div class="game-board" id="gameBoard"></div>
+      <button onclick="startGame()">Restart Game</button>
+      <section class="game-rules">
+        <h2>Game Rules</h2>
+        <p>
+          1️⃣ Click on the moles 🐹 as fast as you can when they appear.<br />
+          2️⃣ Each mole you hit gives you <strong>+1 point</strong>.<br />
+          3️⃣ The moles will pop up randomly every second! ⏱️<br />
+          4️⃣ If you miss or wait too long, they'll disappear again.<br />
+          5️⃣ Click <strong>“Restart Game”</strong> anytime to reset your score
+          and start over
+        </p>
+      </section>
+    </main>
+
+    <script>
+      const gameBoard = document.getElementById("gameBoard");
+      const scoreDisplay = document.getElementById("score");
+      let score = 0;
+      let moleTimer;
+
+      function createBoard() {
+        gameBoard.innerHTML = "";
+        for (let i = 0; i < 9; i++) {
+          const hole = document.createElement("div");
+          hole.classList.add("hole");
+
+          const mole = document.createElement("div");
+          mole.classList.add("mole");
+          mole.textContent = "🐹";
+          mole.addEventListener("click", () => {
+            score++;
+            scoreDisplay.textContent = score;
+            mole.style.display = "none";
+          });
+
+          hole.appendChild(mole);
+          gameBoard.appendChild(hole);
+        }
+      }
+
+      function randomMole() {
+        const holes = document.querySelectorAll(".hole");
+        holes.forEach((hole) => (hole.firstChild.style.display = "none"));
+        const randomIndex = Math.floor(Math.random() * holes.length);
+        holes[randomIndex].firstChild.style.display = "flex";
+      }
+
+      function startGame() {
+        score = 0;
+        scoreDisplay.textContent = score;
+        createBoard();
+        clearInterval(moleTimer);
+        moleTimer = setInterval(randomMole, 1000);
+      }
+
+      startGame();
+    </script>
+  </body>
+</html>

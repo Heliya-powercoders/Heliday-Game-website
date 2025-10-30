@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Heliplay — Language Memory Game</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      defer
+    ></script>
+    <script src="/script.js" defer></script>
+  </head>
+
+  <body class="categories game-memory">
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm mb-0">
+      <div class="container-fluid">
+        <a href="/index.html" class="me-3">
+          <img class="minilogo" src="/images/logo.png" alt="Heliplay logo" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Categories.html">Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="memory-game text-center fade-in">
+      <h1>Language Memory Game</h1>
+
+      <div class="controls">
+        <button id="startMemoryGame" class="btn">Start Game</button>
+        <button id="addWord" class="btn">Add Word</button>
+        <button id="restartGame" class="btn">Restart</button>
+      </div>
+
+      <div class="word-inputs" id="wordInputs" aria-hidden="true">
+        <input type="text" id="wordInput" placeholder="Word (e.g., Bonjour)" />
+        <input
+          type="text"
+          id="meaningInput"
+          placeholder="Meaning (e.g., Hello)"
+        />
+        <button id="saveWord" class="btn">Save</button>
+      </div>
+
+      <div class="help-text" id="helpText">
+        <small
+          >First click “Add Word” and enter some words with their meanings, then
+          press “Start Game”.</small
+        >
+      </div>
+
+      <section
+        class="word-table-section"
+        style="width: 100%; max-width: 900px; margin: 20px auto 0"
+      >
+        <h4 style="text-align: left; color: #26164c; margin-bottom: 10px">
+          Word List
+        </h4>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover" id="wordsTable">
+            <thead>
+              <tr>
+                <th style="width: 8%">Number</th>
+                <th style="width: 36%">Word</th>
+                <th style="width: 36%">Meaning</th>
+                <th style="width: 20%">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="wordsTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="cards-container" id="memoryCards" aria-live="polite"></div>
+
+      <div
+        class="status"
+        id="memoryStatus"
+        style="margin-top: 18px; font-weight: 600"
+      ></div>
+
+      <section class="game-rules mt-5">
+        <h2>Game Rules</h2>
+        <p>
+          1️⃣ Click <strong>“Add Word”</strong> and enter a word with its
+          meaning.<br />
+          2️⃣ Add as many pairs as you want to make the game more challenging.<br />
+          3️⃣ Click <strong>“Start Game”</strong> to shuffle the cards and
+          begin.<br />
+          4️⃣ Click on two cards to find the matching word and meaning pair.<br />
+          5️⃣ Matched pairs stay visible — find them all to win!<br />
+          6️⃣ You can restart anytime using the
+          <strong>“Restart”</strong> button.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

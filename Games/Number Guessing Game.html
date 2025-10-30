@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Heliplay — Number Guessing Game</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      defer
+    ></script>
+    <script src="/script.js" defer></script>
+  </head>
+  <body class="game-numberguess">
+    <nav class="navbar navbar-expand-lg shadow-sm mb-0">
+      <div class="container-fluid">
+        <a href="/index.html" class="me-3">
+          <img class="minilogo" src="/images/logo.png" alt="minilogo" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Categories.html">Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="game-numberguess text-center">
+      <h1 class="category-title">Number Guessing Game</h1>
+
+      <div class="guess-box">
+        <p>I'm thinking of a number between 1 and 100. Can you guess it?</p>
+        <input
+          type="number"
+          id="guessInput"
+          placeholder="Enter your guess"
+          min="1"
+          max="100"
+        />
+        <button id="guessBtn">Guess</button>
+        <button id="restartGuessBtn">Restart</button>
+        <p id="feedback" class="help-text"></p>
+      </div>
+      <section class="game-rules">
+        <h2>Game Rules</h2>
+        <p>
+          1️⃣ The computer picks a random number between
+          <strong>1 and 100</strong>.<br />
+          2️⃣ Type your guess in the box and click
+          <strong>“Guess”</strong>.<br />
+          3️⃣ You'll get hints: “Too high” or “Too low.”<br />
+          4️⃣ Keep guessing until you find the correct number<br />
+          5️⃣ Click <strong>“Restart”</strong> anytime to play again.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
